@@ -16,7 +16,14 @@ const gameboard = (function(){
     };
 
     const placeToken = (row, column, token) => {
-        board[row * 3 + column] = token
+        const index = row * 3 + column;
+        if (board[index] !== " "){
+            console.log("invalid move, cell already occupied")
+            return false;
+        }else {
+            board[index] = token;
+            return true;
+        }
     }
 
     return {getBoard, printBoard, placeToken}
