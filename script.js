@@ -51,3 +51,26 @@ const createPlayers = (function (playerOne = "Player One", playerTwo = "Player T
 
     return {getActivePlayer, switchActivePlayer}
 })();
+
+//controla el flujo del juego
+const gameController = () => {
+    const players = createPlayers;
+    const board = gameboard;
+
+    //imprime el turno del juagador
+    const printRound = () => {
+        console.log(`${players.getActivePlayer().name}'s turn`)
+    }
+
+    const playRound = (row, column) => {
+        if(board.placeToken(row, column, players.getActivePlayer().token)){
+            board.printBoard();
+            players.switchActivePlayer();
+            printRound();
+        }
+    }
+    printRound();
+    return { printRound, playRound}
+}
+
+
