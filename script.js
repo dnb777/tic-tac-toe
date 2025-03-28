@@ -28,3 +28,26 @@ const gameboard = (function(){
 
     return {getBoard, printBoard, placeToken}
 })();
+
+// Gestiona los juagadores y los turnos
+const createPlayers = (function (playerOne = "Player One", playerTwo = "Player Two"){
+    const playerList = [
+        {
+            name: playerOne,
+            token: "X"
+        },
+        {
+            name: playerTwo,
+            token: "O"
+        }
+    ];
+
+    let activePlayer = playerList[0];
+    const getActivePlayer = () => activePlayer;
+
+    const switchActivePlayer = () => {
+        activePlayer = activePlayer === playerList[0] ? playerList[1] : playerList[0];
+    }
+
+    return {getActivePlayer, switchActivePlayer}
+})();
