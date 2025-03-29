@@ -70,6 +70,34 @@ const gameController = () => {
         }
     }
     printRound();
+    function checkWinner() {
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7], 
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        const currentBoard = board.getBoard();
+
+        for (let i = 0; i < winningConditions.length; i++){
+            const [a, b, c] = winningConditions[i];
+            if (currentBoard[a] === currentBoard[b] && 
+                currentBoard[b] === currentBoard[c] &&
+                currentBoard[a] !== " "){
+                return true;
+            }
+        }
+
+        if (!currentBoard.includes(" ")){
+            return "tie";
+        }
+
+        return false;
+    }
     return { printRound, playRound}
 }
 
