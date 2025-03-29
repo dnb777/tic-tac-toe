@@ -1,24 +1,15 @@
 //modulo que gestiona el estado del tablero
 const gameboard = (function(){
     const board = [" "," "," "," "," "," "," "," "," "];
+    // const board = ["X","X","O","O","X","O","X","O","O"];
+
 
     const getBoard = () => board;
 
-    //imprime el tablero como cuadricula 3x3 con separadores
-    const printBoard = () => {
-        console.log(
-            board[0] + " | " + board[1] + " | " + board[2] + "\n" +
-            "--+---+--" + "\n" +
-            board[3] + " | " + board[4] + " | " + board[5] + "\n" + 
-            "--+---+--" + "\n" +
-            board[6] + " | " + board[7] + " | " + board[8]
-        )
-    };
-
-    const placeToken = (row, column, token) => {
-        const index = row * 3 + column;
+    const placeToken = (index, token) => {
+        // const index = row * 3 + column;
         if (board[index] !== " "){
-            console.log("invalid move, cell already occupied")
+            displayController.printMessage("invalid move, cell already occupied")
             return false;
         }else {
             board[index] = token;
@@ -26,7 +17,7 @@ const gameboard = (function(){
         }
     }
 
-    return {getBoard, printBoard, placeToken}
+    return {getBoard, placeToken}
 })();
 
 // Gestiona los juagadores y los turnos
@@ -60,30 +51,33 @@ const gameController = () => {
 
     //imprime el turno del juagador
     const printRound = () => {
-        console.log(`${players.getActivePlayer().name}'s turn`)
+        displayController.render();
+        displayController.printMessage(`${players.getActivePlayer().name}'s turn`)
     }
 
-    const playRound = (row, column) => {
+    const playRound = (index) => {
         if (gameOver) {
-            console.log("Game is over, no more moves allowed!");
+            displayController.printMessage("Game is over, no more moves allowed!")
             return;
         }
-        if(board.placeToken(row, column, players.getActivePlayer().token)){
-            board.printBoard();
+        if(board.placeToken(index, players.getActivePlayer().token)){
             const winner = checkWinner();
+            displayController.render();
             if (winner === true){
-                console.log(`${players.getActivePlayer().name} wins!`);
+                displayController.printMessage(`${players.getActivePlayer().name} wins!`)
                 gameOver = true;
             }else if(winner === "tie"){
-                console.log("It's a tie!");
+                displayController.printMessage("It's a tie!")
                 gameOver = true;
             }else {
                 players.switchActivePlayer();
-                printRound();
+                displayController.printMessage(`${players.getActivePlayer().name}'s turn`)
+
             }
         }
     }
-    printRound();
+    displayController.render();
+    displayController.printMessage(`${players.getActivePlayer().name}'s turn`)
 
     function checkWinner() {
         const winningConditions = [
