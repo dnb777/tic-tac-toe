@@ -78,12 +78,13 @@ const gameController = () => {
                 console.log("It's a tie!");
                 gameOver = true;
             }else {
-            players.switchActivePlayer();
-            printRound();
+                players.switchActivePlayer();
+                printRound();
             }
         }
     }
     printRound();
+
     function checkWinner() {
         const winningConditions = [
             [0, 1, 2],
@@ -112,7 +113,8 @@ const gameController = () => {
 
         return false;
     }
+
     return { printRound, playRound}
 }
 
-
+const game = gameController();
