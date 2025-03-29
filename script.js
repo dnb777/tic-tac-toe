@@ -117,4 +117,37 @@ const gameController = () => {
     return { printRound, playRound}
 }
 
+
+
+const displayController = (function(){
+    const board = gameboard.getBoard();
+    const cells = document.querySelectorAll(".cell");
+    const message = document.querySelector(".message");
+
+    const render = () => {
+        cells.forEach((cell) => {
+            cell.textContent = board[cell.dataset.index];
+        })
+    }
+
+    const init = () => {
+        cells.forEach(cell => {
+            cell.addEventListener("click", () => {
+                const index = cell.dataset.index;
+
+                game.playRound(index)
+
+            })
+        })
+    }
+
+
+    const printMessage = (text) => {
+        message.textContent = text;
+    }
+
+    return {render, printMessage, init}
+})();
+
+
 const game = gameController();
