@@ -151,3 +151,4 @@ const displayController = (function(){
 
 
 const game = gameController();
+displayController.init();
