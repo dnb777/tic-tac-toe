@@ -56,6 +56,7 @@ const createPlayers = (function (playerOne = "Player One", playerTwo = "Player T
 const gameController = () => {
     const players = createPlayers;
     const board = gameboard;
+    let gameOver = false;
 
     //imprime el turno del juagador
     const printRound = () => {
@@ -63,10 +64,23 @@ const gameController = () => {
     }
 
     const playRound = (row, column) => {
+        if (gameOver) {
+            console.log("Game is over, no more moves allowed!");
+            return;
+        }
         if(board.placeToken(row, column, players.getActivePlayer().token)){
             board.printBoard();
+            const winner = checkWinner();
+            if (winner === true){
+                console.log(`${players.getActivePlayer().name} wins!`);
+                gameOver = true;
+            }else if(winner === "tie"){
+                console.log("It's a tie!");
+                gameOver = true;
+            }else {
             players.switchActivePlayer();
             printRound();
+            }
         }
     }
     printRound();
