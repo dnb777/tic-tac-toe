@@ -11,8 +11,53 @@ html {
 
 body {
     font-size: 1.6rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
+z
 h1, h2, h3, h4, h5, h6 {
     font-size: 1em
+}
+
+/* TITLE */
+.title {
+    font-family: monospace;
+    font-size: 5.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+.cell-container {
+    background-color: black;
+    height: 300px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    margin-top: 100px;
+}
+
+.cell {
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.cell:hover {
+    cursor: pointer;
+}
+
+.message {
+    margin-top: 100px;
+    font-family: monospace;
+    font-size: 3.2rem;
+    font-weight: bold;
 }
