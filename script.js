@@ -45,7 +45,11 @@ const createPlayers = (function (playerOne = "Player One", playerTwo = "Player T
 
 //controla el flujo del juego
 const gameController = () => {
-    const players = createPlayers;
+    const playerOneName = document.querySelector("#player-one").value || "Player One";
+    const playerTwoName = document.querySelector("#player-two").value || "Player Two";
+    const resetBtn = document.querySelector(".restart");
+
+    const players = createPlayers(playerOneName, playerTwoName);
     const board = gameboard;
     let gameOver = false;
 
