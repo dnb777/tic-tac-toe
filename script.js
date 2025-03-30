@@ -115,6 +115,17 @@ const gameController = () => {
         return false;
     }
 
+    function resetGame() {
+        board.getBoard().forEach((cell, index, array) => {
+            array[index] = " ";
+            players.resetTurn();
+            printRound();
+            gameOver = false;
+        })
+    }
+
+    resetBtn.addEventListener("click", resetGame)
+
     return { printRound, playRound}
 }
 
