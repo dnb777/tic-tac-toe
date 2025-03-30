@@ -84,8 +84,7 @@ const gameController = () => {
             }
         }
     }
-    displayController.render();
-    displayController.printMessage(`${players.getActivePlayer().name}'s turn`)
+    printRound()
 
     function checkWinner() {
         const winningConditions = [
