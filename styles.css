@@ -61,3 +61,44 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3.2rem;
     font-weight: bold;
 }
+
+/* Players */
+.players {
+    margin-top: 50px;
+    display: flex;
+    gap: 100px;
+}
+
+.players input[type="text"]{
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+/* Buttons */
+.button-container {
+    margin-top: 50px;
+    display: flex;
+    gap: 30px;
+}
+
+.button-container button {
+    appearance: none;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(214, 238, 255);
+    font-family: monospace;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 0.7 all ease-in-out;
+}
+
+.button-container button:hover {
+    background-color: rgb(189, 227, 255);
+}
+.button-container button:active {
+    transform: scale(1.1);
+}
