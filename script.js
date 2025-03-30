@@ -1,13 +1,11 @@
 //modulo que gestiona el estado del tablero
 const gameboard = (function(){
     const board = [" "," "," "," "," "," "," "," "," "];
-    // const board = ["X","X","O","O","X","O","X","O","O"];
-
 
     const getBoard = () => board;
 
+    //valida y colaca un token en el indice dado
     const placeToken = (index, token) => {
-        // const index = row * 3 + column;
         if (board[index] !== " "){
             displayController.printMessage("invalid move, cell already occupied")
             return false;
@@ -20,7 +18,7 @@ const gameboard = (function(){
     return {getBoard, placeToken}
 })();
 
-// Gestiona los juagadores y los turnos
+// fabrica para crear juagadores con nombres dinamicos
 const createPlayers = (playerOne, playerTwo) => {
     const playerList = [
         {
@@ -39,7 +37,7 @@ const createPlayers = (playerOne, playerTwo) => {
     const switchActivePlayer = () => {
         activePlayer = activePlayer === playerList[0] ? playerList[1] : playerList[0];
     }
-
+    // reinicia al primer jugador para nuevos juegos
     const resetTurn = () => {
         activePlayer = playerList[0];
     }
@@ -84,18 +82,15 @@ const gameController = () => {
             }
         }
     }
+    //inicia el juego
     printRound()
 
+    //controla condiciones de victoria o empate
     function checkWinner() {
         const winningConditions = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7], 
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6]
+            [0, 1, 2],[3, 4, 5],[6, 7, 8], //filas
+            [0, 3, 6],[1, 4, 7],[2, 5, 8], //columnas
+            [0, 4, 8],[2, 4, 6]            //diagonales
         ];
         const currentBoard = board.getBoard();
 
@@ -115,6 +110,7 @@ const gameController = () => {
         return false;
     }
 
+    //Reinicia el juego al estado inicial
     function resetGame() {
         board.getBoard().forEach((cell, index, array) => {
             array[index] = " ";
@@ -130,7 +126,7 @@ const gameController = () => {
 }
 
 
-
+//Maneja la interfaz en el DOM
 const displayController = (function(){
     const board = gameboard.getBoard();
     const cells = document.querySelectorAll(".cell");
@@ -142,6 +138,7 @@ const displayController = (function(){
         })
     }
 
+    //captura eventos de clic en las celdas
     const init = () => {
         cells.forEach(cell => {
             cell.addEventListener("click", () => {
