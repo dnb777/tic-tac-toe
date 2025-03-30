@@ -21,7 +21,7 @@ const gameboard = (function(){
 })();
 
 // Gestiona los juagadores y los turnos
-const createPlayers = (function (playerOne = "Player One", playerTwo = "Player Two"){
+const createPlayers = (playerOne, playerTwo) => {
     const playerList = [
         {
             name: playerOne,
@@ -40,8 +40,12 @@ const createPlayers = (function (playerOne = "Player One", playerTwo = "Player T
         activePlayer = activePlayer === playerList[0] ? playerList[1] : playerList[0];
     }
 
-    return {getActivePlayer, switchActivePlayer}
-})();
+    const resetTurn = () => {
+        activePlayer = playerList[0];
+    }
+
+    return {getActivePlayer, switchActivePlayer, resetTurn}
+};
 
 //controla el flujo del juego
 const gameController = () => {
