@@ -82,8 +82,7 @@ const gameController = () => {
             }
         }
     }
-    //inicia el juego
-    printRound()
+    
 
     //controla condiciones de victoria o empate
     function checkWinner() {
@@ -111,18 +110,21 @@ const gameController = () => {
     }
 
     //Reinicia el juego al estado inicial
-    function resetGame() {
+    const resetGame = () => {
         board.getBoard().forEach((cell, index, array) => {
             array[index] = " ";
-            players.resetTurn();
-            printRound();
-            gameOver = false;
         })
+        players.resetTurn();
+        gameOver = false;
+        printRound();
     }
 
     resetBtn.addEventListener("click", resetGame)
 
-    return { printRound, playRound}
+    //inicia el juego
+    printRound()
+
+    return { printRound, playRound, resetGame}
 }
 
 
@@ -144,7 +146,7 @@ const displayController = (function(){
             cell.addEventListener("click", () => {
                 const index = cell.dataset.index;
 
-                game.playRound(index)
+                if (game) game.playRound(index);
 
             })
         })
@@ -159,5 +161,17 @@ const displayController = (function(){
 })();
 
 
-const game = gameController();
+
+const startBtn = document.querySelector(".start");
+let game;
+
+function startGame() {
+    const board = gameboard.getBoard();
+    board.forEach((cell, index, array) => {
+        array[index] = " ";
+    })
+    game = gameController()
+    game.printRound()
+}
 displayController.init();
+startBtn.addEventListener("click", startGame);
